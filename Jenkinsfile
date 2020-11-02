@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage('Set Project and Zone') {
             steps {
-              withCredentials([file(credentialsId: 'myproject-ahsan-123', variable: 'JSON_KEY')]) {
-                sh 'gcloud auth activate-service-account --key-file ${JSON_KEY}'
+              withGCloudCredentials("myproject-ahsan-123", "myproject-ahsan-123") 
+                // sh 'gcloud auth activate-service-account --key-file ${JSON_KEY}'
                 sh 'gcloud --version'
-                // sh 'gcloud config set project myproject-ahsan-123'
+                sh 'gcloud config set project myproject-ahsan-123'
                 // sh 'gcloud config set compute/zone us-central1-f'
               }
             }    
