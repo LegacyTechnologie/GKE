@@ -1,15 +1,15 @@
 pipeline {
     agent any
     stages {
-        stage('Set Project and Zone') {
-            steps {
-              sh 'gcloud config set project myproject-ahsan-123'
-              sh 'gcloud config set compute/zone us-central1-f'
-            }    
-        }
+        // stage('Set Project and Zone') {
+        //     steps {
+        //       sh 'gcloud config set project myproject-ahsan-123'
+        //       sh 'gcloud config set compute/zone us-central1-f'
+        //     }    
+        // }
         stage('Build and push image with Container Builder') {
           steps {
-            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke $WORKSPACE/.'
+            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke $WORKSPACE\\.'
           }
         }
         stage('Create cluster') {
@@ -24,8 +24,8 @@ pipeline {
         }
         stage('Deployment') {
           steps {
-            sh 'kubectl apply -f $WORKSPACE/deployment.yaml'
-            sh 'kubectl apply -f $WORKSPACE/service.yaml'
+            sh 'kubectl apply -f $WORKSPACE\\deployment.yaml'
+            sh 'kubectl apply -f $WORKSPACE\\service.yaml'
             sh 'kubectl get services'
           }
         }
