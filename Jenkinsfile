@@ -11,9 +11,7 @@ pipeline {
         // }
         stage('Build and push image with Container Builder') {
           steps {
-            container('gcloud') {
-              sh 'PYTHONUNBUFFERED=1 gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke .'
-            }
+              sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke $WORKSPACE/.'
           }
         }
         stage('Create cluster') {
