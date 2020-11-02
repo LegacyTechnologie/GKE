@@ -3,8 +3,11 @@ pipeline {
     stages {
         stage('Set Project and Zone') {
             steps {
-              sh 'gcloud config set project myproject-ahsan-123'
-              sh 'gcloud config set compute/zone us-central1-f'
+              withCredentials([file(credentialsId: 'myproject-ahsan-123', variable: 'GC_KEY')]) {
+                sh 'gcloud --version'
+                sh 'gcloud config set project myproject-ahsan-123'
+                sh 'gcloud config set compute/zone us-central1-f'
+              }
             }    
         }
         // stage('Build and push image with Container Builder') {
