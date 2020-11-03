@@ -34,21 +34,27 @@ pipeline {
         // }
         // stage('Deployment') {
         //   steps {
-        //     withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin/"]){
+        //     withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
         //       sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
         //       sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/service.yaml'
         //       sh '$GOOGLE_CLOUD/kubectl get services'
         //     }
         //   }
         // }
-        stage('Deployment') {
+        // stage('Get Services') {
+        //   steps {
+        //     withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
+        //       sh '$GOOGLE_CLOUD/kubectl get nodes'
+        //       sh '$GOOGLE_CLOUD/kubectl get deployments'
+        //       sh '$GOOGLE_CLOUD/kubectl get pods'
+        //       sh '$GOOGLE_CLOUD/kubectl get services'
+        //     }
+        //   }
+        // }
+        stage('Delete') {
           steps {
-            withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin/"]){
-              sh '$GOOGLE_CLOUD/kubectl get nodes'
-              sh '$GOOGLE_CLOUD/kubectl get deployments'
-              sh '$GOOGLE_CLOUD/kubectl get pods'
-              sh '$GOOGLE_CLOUD/kubectl get services'
-            }
+            sh 'gcloud container clusters delete helloworld-gke'
+            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke'
           }
         }
     }
