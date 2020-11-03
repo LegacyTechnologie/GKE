@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Set Project and Zone') {
             steps {
-              withEnv(['GCLOUD_PATH=C:\\Program Files (x86)\\Google\\Cloud SDK\\google-cloud-sdk\\bin']) {
+              // withEnv(['GCLOUD_PATH=C:\\Program Files (x86)\\Google\\Cloud SDK\\google-cloud-sdk\\bin']) {
                 // sh ('gcloud auth activate-service-account --key-file $GC_KEY')
-                sh '$GCLOUD_PATH\\gcloud --version'
+              echo'gcloud --version'
                 // sh 'gcloud config set project myproject-ahsan-123'
                 // sh 'gcloud config set compute/zone us-central1-f'
-              }
+              // }
             }    
         }
         // stage('Build and push image with Container Builder') {
