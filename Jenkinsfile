@@ -35,9 +35,9 @@ pipeline {
         stage('Deployment') {
           steps {
             withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-              // sh 'gcloud container clusters get-credentials helloworld-gke'
+              sh 'gcloud container clusters get-credentials helloworld-gke'
               // sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${IMAGE_TAG}#' ./k8s/production/*.yaml")
-              step([$class: 'KubernetesEngineBuilder', projectId: "myproject-ahsan-123", clusterName: "helloworld-gke", zone: "us-central1-f", manifestPattern: '$WORKSPACE/', credentialsId: "gcloud", verifyDeployments: true])
+              step([$class: 'KubernetesEngineBuilder', projectId: "myproject-ahsan-123", clusterName: "helloworld-gke", zone: "us-central1-f", manifestPattern: '', credentialsId: "myproject-ahsan-123", verifyDeployments: true])
               // sh 'kubectl apply -f deployment.yaml'
               // sh 'kubectl apply -f service.yaml'
               // sh 'kubectl get services'
