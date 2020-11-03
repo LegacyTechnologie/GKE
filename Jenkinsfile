@@ -35,8 +35,9 @@ pipeline {
         stage('Deployment') {
           steps {
             withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-              sh 'gcloud components install kubectl'
+              // sh 'gcloud components update kubectl'
               // step([$class: 'KubernetesEngineBuilder', projectId: "myproject-ahsan-123", clusterName: "helloworld-gke", zone: "us-central1-f", manifestPattern: 'deployment.yaml', credentialsId: "myproject-ahsan-123", verifyDeployments: true])
+              sh 'which gcloud'
               sh 'kubectl apply -f $WORKSPACE/deployment.yaml'
               sh 'kubectl apply -f $WORKSPACE/service.yaml'
               sh 'kubectl get services'
