@@ -11,36 +11,31 @@ pipeline {
             }
           }    
         }
-        // stage('Build and push image with Container Builder') {
-        //   steps {
-        //     withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-        //       sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke .'
-        //     }
-        //   }
-        // }
-        // stage('Create cluster') {
-        //   steps {
-        //     withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-        //       sh 'gcloud container clusters create helloworld-gke --num-nodes 1'
-        //     }
-        //   }
-        // }
-        // stage('Get cluster credentials') {
-        //   steps {
-        //     withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-        //       sh 'gcloud container clusters get-credentials helloworld-gke'
-        //     }
-        //   }
-        // }
-        // stage('Deployment') {
-        //   steps {
-        //     withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
-        //       sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
-        //       sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/service.yaml'
-        //       sh '$GOOGLE_CLOUD/kubectl get services'
-        //     }
-        //   }
-        // }
+        stage('Build and push image with Container Builder') {
+          steps {
+            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke .'
+          }
+        }
+        stage('Create cluster') {
+          steps {
+            sh 'gcloud container clusters create helloworld-gke --num-nodes 1'
+          }
+        }
+        stage('Get cluster credentials') {
+          steps {
+            sh 'gcloud container clusters get-credentials helloworld-gke'
+          }
+        }
+        stage('Deployment') {
+          steps {
+            withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
+              sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
+              sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/service.yaml'
+              sh 'sleep 60'
+              sh '$GOOGLE_CLOUD/kubectl get services'
+            }
+          }
+        }
         // stage('Get Services') {
         //   steps {
         //     withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
