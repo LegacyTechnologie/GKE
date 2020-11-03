@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Set Project and Zone') {
             steps {
-              container('gcloud') {
+              // container('gcloud') {
                 // sh ('gcloud auth activate-service-account --key-file $GC_KEY')
-                sh ('gcloud --version')
+                gcloud credentialsId: 'myproject-ahsan-123'
                 // sh 'gcloud config set project myproject-ahsan-123'
                 // sh 'gcloud config set compute/zone us-central1-f'
-              }
+              // }
             }    
         }
         // stage('Build and push image with Container Builder') {
