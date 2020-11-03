@@ -38,12 +38,12 @@ pipeline {
               // sh 'gcloud components update'
               // step([$class: 'KubernetesEngineBuilder', projectId: "myproject-ahsan-123", clusterName: "helloworld-gke", zone: "us-central1-f", manifestPattern: 'deployment.yaml', credentialsId: "myproject-ahsan-123", verifyDeployments: true])
               // sh 'which kubectl'
-            withKubeConfig([credentialsId: 'myproject-ahsan-123']) {
+            withEnv(["GOOGLE_CLOUD='/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin/'"]){
               sh 'ls -la /snap/bin/'
               sh 'ls -la /snap/google-cloud-sdk/'
               sh 'ls -la /snap/core18/'
               sh 'ls -la /snap/snapd/'
-              sh 'kubectl apply -f $WORKSPACE/deployment.yaml'
+              sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
               sh 'kubectl apply -f $WORKSPACE/service.yaml'
               sh 'kubectl get services'
             }
