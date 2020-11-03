@@ -34,10 +34,11 @@ pipeline {
         // }
         stage('Deployment') {
           steps {
-            withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
+            // withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
               // sh 'gcloud components update'
               // step([$class: 'KubernetesEngineBuilder', projectId: "myproject-ahsan-123", clusterName: "helloworld-gke", zone: "us-central1-f", manifestPattern: 'deployment.yaml', credentialsId: "myproject-ahsan-123", verifyDeployments: true])
               // sh 'which kubectl'
+            withKubeConfig([credentialsId: 'myproject-ahsan-123']) {
               sh 'ls -la /snap/bin/'
               sh 'ls -la /snap/google-cloud-sdk/'
               sh 'ls -la /snap/core18/'
