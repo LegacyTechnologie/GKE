@@ -44,6 +44,9 @@ pipeline {
         stage('Deployment') {
           steps {
             withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin/"]){
+              sh '$GOOGLE_CLOUD/kubectl get nodes'
+              sh '$GOOGLE_CLOUD/kubectl get deployments'
+              sh '$GOOGLE_CLOUD/kubectl get pods'
               sh '$GOOGLE_CLOUD/kubectl get services'
             }
           }
