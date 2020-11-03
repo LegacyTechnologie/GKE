@@ -5,7 +5,7 @@ pipeline {
             steps {
               node {
                 gcloud(serviceAccountCredential: 'my-credential-name') {
-                  sh 'gcloud ...'
+                  sh 'gcloud --version'
                 }
               }
               // gcloud(serviceAccountCredential: 'myproject-ahsan-123') {
