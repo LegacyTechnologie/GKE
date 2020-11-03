@@ -6,7 +6,7 @@ pipeline {
               withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
                 // sh ('gcloud auth activate-service-account --key-file $GC_KEY')
                 sh 'gcloud auth activate-service-account --key-file $JSON_KEY'
-                // sh 'gcloud --version'
+                sh 'gcloud --version'
                 // sh 'gcloud config set project myproject-ahsan-123'
                 // sh 'gcloud config set compute/zone us-central1-f'
               }
