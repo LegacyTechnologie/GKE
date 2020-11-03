@@ -53,8 +53,8 @@ pipeline {
         // }
         stage('Delete') {
           steps {
-            sh 'gcloud container clusters delete helloworld-gke'
-            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke'
+            sh 'gcloud container clusters delete helloworld-gke --quiet'
+            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke --quiet'
           }
         }
     }
