@@ -34,8 +34,8 @@ pipeline {
         // }
         stage('Deployment') {
           steps {
-            // withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
-            container('kubectl') {
+            withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
+              sh 'gcloud auth activate-service-account --key-file $JSON_KEY'
               sh 'kubectl apply -f $WORKSPACE/deployment.yaml'
               sh 'kubectl apply -f $WORKSPACE/service.yaml'
               sh 'kubectl get services'
