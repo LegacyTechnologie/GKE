@@ -36,8 +36,8 @@ pipeline {
           steps {
             withCredentials([[$class: 'FileBinding', credentialsId:"gcloud", variable: 'JSON_KEY']]) {
               sh 'gcloud container clusters get-credentials helloworld-gke'
-              sh 'kubectl apply -f $WORKSPACE/deployment.yaml'
-              sh 'kubectl apply -f $WORKSPACE/service.yaml'
+              sh 'kubectl apply -f deployment.yaml'
+              sh 'kubectl apply -f service.yaml'
               sh 'kubectl get services'
             }
           }
