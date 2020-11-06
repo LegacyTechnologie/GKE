@@ -4,7 +4,7 @@ pipeline {
       APP_NAME = "helloworld-gke"
       IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     }
-    agent an
+    agent any
     stages {
         stage('Set Project and Zone') {
           steps {
