@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build and push image with Container Builder') {
           steps {
-            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke .'
+            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke:blue .'
           }
         }
         stage('Create cluster') {
@@ -31,7 +31,7 @@ pipeline {
             withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
               sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
               sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/service.yaml'
-              sh 'sleep 60'
+              sh 'sleep 50'
               sh '$GOOGLE_CLOUD/kubectl get services'
             }
           }
@@ -50,7 +50,7 @@ pipeline {
           steps {
             sh 'sleep 180'
             sh 'gcloud container clusters delete helloworld-gke --quiet'
-            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke --quiet'
+            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke:blue --quiet'
           }
         }
     }
