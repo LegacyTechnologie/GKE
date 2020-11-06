@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+      PROJECT = "myproject-ahsan-123"
+      APP_NAME = "helloworld-gke"
+      IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
+    }
     agent any
     stages {
         stage('Set Project and Zone') {
@@ -7,23 +12,23 @@ pipeline {
               sh 'gcloud auth activate-service-account --key-file $JSON_KEY'
               sh 'gcloud --version'
               // sh 'gcloud config set project myproject-ahsan-123'
-              sh 'gcloud config set compute/zone us-central1-f'
+              // sh 'gcloud config set compute/zone us-central1-f'
             }
           }    
         }
         stage('Build and push image with Container Builder') {
           steps {
-            sh 'gcloud builds submit -t gcr.io/myproject-ahsan-123/helloworld-gke .'
+            sh 'gcloud builds submit -t ${IMAGE_TAG} .'
           }
         }
         stage('Create cluster') {
           steps {
-            sh 'gcloud container clusters create helloworld-gke --num-nodes 1'
+            sh 'gcloud container clusters create ${APP_NAME} --num-nodes 1'
           }
         }
         stage('Get cluster credentials') {
           steps {
-            sh 'gcloud container clusters get-credentials helloworld-gke'
+            sh 'gcloud container clusters get-credentials ${APP_NAME}'
           }
         }
         stage('Deployment') {
@@ -49,8 +54,8 @@ pipeline {
         stage('Delete') {
           steps {
             sh 'sleep 180'
-            sh 'gcloud container clusters delete helloworld-gke --quiet'
-            sh 'gcloud container images delete gcr.io/myproject-ahsan-123/helloworld-gke --quiet'
+            sh 'gcloud container clusters delete ${APP_NAME} --quiet'
+            sh 'gcloud container images delete ${IMAGE_TAG} --quiet'
           }
         }
     }
