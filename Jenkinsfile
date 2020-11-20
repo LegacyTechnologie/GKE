@@ -1,7 +1,7 @@
 pipeline {
     environment {
       PROJECT = "myproject-ahsan-123"
-      APP_NAME = "helloworld-gke"
+      APP_NAME = "aspnet-microservices-gke-direct"
       IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     }
     agent any
