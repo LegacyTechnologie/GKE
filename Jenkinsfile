@@ -51,12 +51,12 @@ pipeline {
         //     }
         //   }
         // }
-        stage('Delete') {
-          steps {
-            sh 'sleep 180'
-            sh 'gcloud container clusters delete ${APP_NAME} --quiet'
-            sh 'gcloud container images delete ${IMAGE_TAG} --quiet'
-          }
-        }
+        // stage('Delete') {
+        //   steps {
+        //     sh 'sleep 180'
+        //     sh 'gcloud container clusters delete ${APP_NAME} --quiet'
+        //     sh 'gcloud container images delete ${IMAGE_TAG} --quiet'
+        //   }
+        // }
     }
 }
