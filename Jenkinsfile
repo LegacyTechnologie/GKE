@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Create cluster') {
           steps {
-            sh 'gcloud container clusters create ${APP_NAME} --num-nodes 1'
+            sh 'gcloud container clusters create ${APP_NAME} --num-nodes 1 --machine-type=n1-standard-2'
           }
         }
         stage('Get cluster credentials') {
@@ -36,7 +36,7 @@ pipeline {
             withEnv(["GOOGLE_CLOUD=/home/ahsan_sheraz_legacytechnologies_/google-cloud-sdk/bin"]){
               sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/deployment.yaml'
               sh '$GOOGLE_CLOUD/kubectl apply -f $WORKSPACE/service.yaml'
-              sh 'sleep 40'
+              sh 'sleep 60'
               sh '$GOOGLE_CLOUD/kubectl get services'
             }
           }
